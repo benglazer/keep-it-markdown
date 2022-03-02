@@ -199,7 +199,7 @@ def keep_save_md_file(keepapi, gnote, note_labels, note_date, overwrite, skip_ex
 
     try:
    
-      md_text = gnote.text.replace(u"\u2610", '- [ ]').replace(u"\u2611", ' - [x]')
+      md_text = gnote.text.replace(u"\u2610", '- [ ]').replace(u"\u2611", '- [x]')
 
       outpath = load_config().get("output_path").rstrip("/")
       mediapath = load_config().get("media_path").rstrip("/")
