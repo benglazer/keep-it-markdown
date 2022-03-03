@@ -244,10 +244,19 @@ def keep_save_md_file(keepapi, gnote, note_labels, note_date, overwrite, skip_ex
   
       f=open(md_file,"w+", encoding='utf-8', errors="ignore")
       #f.write(url_to_md(url_to_md(note_text, "http://"), "https://") + "\n")
+
+      # Write Keep metadata as Obsidian front-matter
+      f.write('---\n')
+      f.write('source: "Google Keep"\n')
+      f.write(f'orig_keep_note_url: "{KEEP_NOTE_URL}{gnote.id}"\n')
+      f.write(f'created: {gnote.timestamps.created}\n')
+      f.write(f'updated: {gnote.timestamps.updated}\n')
+      if note_labels:
+          f.write(f'labels: {note_labels}\n')
+      f.write('---\n\n')
+
       f.write(url_to_md(md_text) + "\n")
-      f.write("\n" + note_labels + "\n\n")
-      f.write("Created: " + str(gnote.timestamps.created) + "      Updated: " + str(gnote.timestamps.updated) + "\n\n")
-      f.write("["+ KEEP_NOTE_URL + str(gnote.id) + "](" + KEEP_NOTE_URL + str(gnote.id) + ")\n\n")
+
       f.close()
       return(1)
     except Exception as e:
